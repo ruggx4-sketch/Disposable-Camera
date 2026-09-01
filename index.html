@@ -2,74 +2,224 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Disposable Camera</title>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<title>Mr. and Mrs. Ruggiero Wedding</title>
 
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f2d43d;
-    text-align: center;
-  }
 
-  .camera {
-    max-width: 500px;
-    min-height: 100vh;
-    margin: auto;
-    padding: 20px;
-    box-sizing: border-box;
-  }
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
 
-  h1 {
-    margin-top: 10px;
-  }
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f3c928;
+}
 
-  video {
-    width: 100%;
-    background: black;
-    border-radius: 12px;
-    margin-top: 20px;
-  }
+body {
+  display: flex;
+  justify-content: center;
+  color: #111;
+}
 
-  #counter {
-    background: black;
-    color: white;
-    padding: 12px;
-    border-radius: 6px;
-    display: inline-block;
-    margin: 15px;
-    font-size: 20px;
-  }
+.camera {
+  width: 100%;
+  max-width: 520px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, #ffe96d 0%, transparent 35%),
+    linear-gradient(135deg, #f6d02f, #e6ad18);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
 
-  button {
-    font-size: 20px;
-    padding: 16px 28px;
-    border: none;
-    border-radius: 40px;
-    margin: 10px;
-  }
+/* Disposable camera texture */
 
-  #start {
-    background: black;
-    color: white;
-  }
+.camera::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,.4) 0px,
+      rgba(0,0,0,.4) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+}
 
-  #capture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: #e53935;
-    border: 8px solid white;
-    color: white;
-    font-size: 30px;
-  }
+/* Header */
 
-  #status {
-    font-weight: bold;
-    margin: 15px;
-  }
+.top {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.camera-icon {
+  font-size: 38px;
+  margin-bottom: 5px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.05;
+  text-shadow: 2px 2px 0 rgba(255,255,255,.35);
+}
+
+.subtitle {
+  font-size: 19px;
+  font-weight: bold;
+  margin-top: 10px;
+  letter-spacing: 1px;
+}
+
+/* Camera viewfinder */
+
+.viewfinder {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin-top: 28px;
+  aspect-ratio: 3 / 4;
+  background: #111;
+  border: 10px solid #222;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 4px #777,
+    0 8px 18px rgba(0,0,0,.35);
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Status */
+
+.status {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-top: 18px;
+}
+
+.counter {
+  display: inline-block;
+  background: #111;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  box-shadow: 3px 3px 0 rgba(0,0,0,.2);
+}
+
+/* Instructions */
+
+.message {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 18px 10px;
+  line-height: 1.4;
+}
+
+/* Shutter button */
+
+.controls {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.shutter {
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  border: 8px solid #fff;
+  background: #d32f2f;
+  box-shadow:
+    0 0 0 5px #222,
+    0 8px 12px rgba(0,0,0,.35);
+  cursor: pointer;
+}
+
+.shutter:active {
+  transform: scale(.93);
+}
+
+.shutter:disabled {
+  background: #777;
+  cursor: not-allowed;
+}
+
+/* Photo gallery */
+
+.gallery {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-top: 25px;
+}
+
+.gallery img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 3px solid #fff;
+  background: #222;
+  transform: rotate(-1deg);
+}
+
+.gallery img:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+/* Film label */
+
+.film-label {
+  position: relative;
+  z-index: 2;
+  margin: 25px auto 10px;
+  background: #fff4b0;
+  border: 3px dashed #222;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  max-width: 360px;
+}
+
+#canvas {
+  display: none;
+}
+
 </style>
 </head>
 
@@ -77,74 +227,271 @@
 
 <div class="camera">
 
-  <h1>📷 DISPOSABLE CAMERA</h1>
+  <div class="top">
 
-  <p>Take a photo and it will be saved automatically.</p>
+    <div class="camera-icon">📷</div>
 
-  <button id="start">OPEN CAMERA</button>
+    <div class="title">
+      Mr. & Mrs.<br>
+      Ruggiero Wedding
+    </div>
 
-  <video id="video" autoplay playsinline style="display:none;"></video>
+    <div class="subtitle">
+      WEDDING DISPOSABLE CAMERA
+    </div>
 
-  <div id="counter">0 / 27</div>
+  </div>
 
-  <br>
 
-  <button id="capture" style="display:none;">📷</button>
+  <div class="viewfinder">
+    <video id="video" autoplay playsinline></video>
+  </div>
 
-  <div id="status"></div>
+
+  <div class="status">
+
+    <div class="counter">
+      <span id="photoCount">0</span> / 10
+    </div>
+
+  </div>
+
+
+  <div class="message" id="message">
+    Capture your favorite wedding memories!
+  </div>
+
+
+  <div class="controls">
+
+    <button
+      class="shutter"
+      id="captureButton"
+      aria-label="Take Photo">
+    </button>
+
+  </div>
+
+
+  <div class="gallery" id="gallery"></div>
+
+
+  <div class="film-label">
+    Mr. & Mrs. Ruggiero Wedding<br>
+    Thanks for celebrating with us!
+  </div>
+
+
+  <canvas id="canvas"></canvas>
 
 </div>
 
+
 <script>
 
-let photoCount = 0;
-let stream;
-
 const video = document.getElementById("video");
-const startButton = document.getElementById("start");
-const captureButton = document.getElementById("capture");
-const status = document.getElementById("status");
-const counter = document.getElementById("counter");
+const canvas = document.getElementById("canvas");
+const captureButton = document.getElementById("captureButton");
+const photoCount = document.getElementById("photoCount");
+const gallery = document.getElementById("gallery");
+const message = document.getElementById("message");
 
-startButton.onclick = async () => {
+const MAX_PHOTOS = 10;
+
+let count = Number(localStorage.getItem("weddingPhotoCount")) || 0;
+
+photoCount.textContent = count;
+
+
+/* Start camera */
+
+async function startCamera() {
+
   try {
-    stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: "environment" },
+
+    const stream = await navigator.mediaDevices.getUserMedia({
+
+      video: {
+        facingMode: "environment"
+      },
+
       audio: false
+
     });
 
     video.srcObject = stream;
-    video.style.display = "block";
-    captureButton.style.display = "inline-block";
-    startButton.style.display = "none";
-    status.textContent = "";
 
-  } catch (err) {
-    status.textContent =
-      "Camera access was denied. Please allow camera access.";
   }
-};
 
-captureButton.onclick = () => {
+  catch (error) {
 
-  const canvas = document.createElement("canvas");
+    console.error(error);
+
+    message.innerHTML =
+      "Camera access is needed to take photos. Please allow camera access.";
+
+  }
+
+}
+
+
+startCamera();
+
+
+/* Capture photo */
+
+captureButton.addEventListener("click", async () => {
+
+  if (count >= MAX_PHOTOS) {
+
+    message.innerHTML =
+      "You've used all 10 photos. Thank you for capturing our memories! ❤️";
+
+    captureButton.disabled = true;
+
+    return;
+
+  }
+
 
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
 
-  const ctx = canvas.getContext("2d");
 
-  ctx.drawImage(video, 0, 0);
+  const context = canvas.getContext("2d");
 
-  const photo = canvas.toDataURL("image/jpeg", 0.9);
 
-  photoCount++;
-  counter.textContent = photoCount + " / 27";
+  context.drawImage(
+    video,
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
 
-  status.textContent =
-    "Photo captured! Upload connection will be added next.";
 
-};
+  const imageData = canvas.toDataURL("image/jpeg", 0.92);
+
+
+  /* Add photo to screen */
+
+  const image = document.createElement("img");
+
+  image.src = imageData;
+
+  gallery.appendChild(image);
+
+
+  /* Increase count */
+
+  count++;
+
+  localStorage.setItem(
+    "weddingPhotoCount",
+    count
+  );
+
+
+  photoCount.textContent = count;
+
+
+  /* Flash effect */
+
+  document.body.style.background = "#ffffff";
+
+  setTimeout(() => {
+
+    document.body.style.background = "#f3c928";
+
+  }, 100);
+
+
+  message.innerHTML =
+    "Photo saved! Keep capturing wedding memories!";
+
+
+  /*
+    GOOGLE DRIVE UPLOAD
+    This will be activated after we connect
+    your Google Drive upload link.
+  */
+
+  // uploadToGoogleDrive(imageData);
+
+
+  if (count >= MAX_PHOTOS) {
+
+    message.innerHTML =
+      "All 10 photos have been taken. Thank you! ❤️";
+
+    captureButton.disabled = true;
+
+  }
+
+});
+
+
+/*
+  GOOGLE DRIVE FUNCTION
+
+  We will add your Google Apps Script URL
+  where it says YOUR_GOOGLE_SCRIPT_URL.
+*/
+
+
+async function uploadToGoogleDrive(imageData) {
+
+  const GOOGLE_SCRIPT_URL =
+    "YOUR_GOOGLE_SCRIPT_URL";
+
+
+  if (
+    GOOGLE_SCRIPT_URL ===
+    "YOUR_GOOGLE_SCRIPT_URL"
+  ) {
+    return;
+  }
+
+
+  try {
+
+    await fetch(
+      GOOGLE_SCRIPT_URL,
+      {
+
+        method: "POST",
+
+        body: JSON.stringify({
+
+          image: imageData,
+
+          filename:
+            "Ruggiero-Wedding-" +
+            Date.now() +
+            ".jpg"
+
+        })
+
+      }
+    );
+
+
+    console.log(
+      "Photo uploaded to Google Drive"
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Google Drive upload error:",
+      error
+    );
+
+  }
+
+}
 
 </script>
 
