@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Disposable Camera</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2d43d;
+    text-align: center;
+  }
+
+  .camera {
+    max-width: 500px;
+    min-height: 100vh;
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    margin-top: 10px;
+  }
+
+  video {
+    width: 100%;
+    background: black;
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+
+  #counter {
+    background: black;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin: 15px;
+    font-size: 20px;
+  }
+
+  button {
+    font-size: 20px;
+    padding: 16px 28px;
+    border: none;
+    border-radius: 40px;
+    margin: 10px;
+  }
+
+  #start {
+    background: black;
+    color: white;
+  }
+
+  #capture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #e53935;
+    border: 8px solid white;
+    color: white;
+    font-size: 30px;
+  }
+
+  #status {
+    font-weight: bold;
+    margin: 15px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="camera">
+
+  <h1>📷 DISPOSABLE CAMERA</h1>
+
+  <p>Take a photo and it will be saved automatically.</p>
+
+  <button id="start">OPEN CAMERA</button>
+
+  <video id="video" autoplay playsinline style="display:none;"></video>
+
+  <div id="counter">0 / 27</div>
+
+  <br>
+
+  <button id="capture" style="display:none;">📷</button>
+
+  <div id="status"></div>
+
+</div>
+
+<script>
+
+let photoCount = 0;
+let stream;
+
+const video = document.getElementById("video");
+const startButton = document.getElementById("start");
+const captureButton = document.getElementById("capture");
+const status = document.getElementById("status");
+const counter = document.getElementById("counter");
+
+startButton.onclick = async () => {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "environment" },
+      audio: false
+    });
+
+    video.srcObject = stream;
+    video.style.display = "block";
+    captureButton.style.display = "inline-block";
+    startButton.style.display = "none";
+    status.textContent = "";
+
+  } catch (err) {
+    status.textContent =
+      "Camera access was denied. Please allow camera access.";
+  }
+};
+
+captureButton.onclick = () => {
+
+  const canvas = document.createElement("canvas");
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  const ctx = canvas.getContext("2d");
+
+  ctx.drawImage(video, 0, 0);
+
+  const photo = canvas.toDataURL("image/jpeg", 0.9);
+
+  photoCount++;
+  counter.textContent = photoCount + " / 27";
+
+  status.textContent =
+    "Photo captured! Upload connection will be added next.";
+
+};
+
+</script>
+
+</body>
+</html>
